@@ -14,9 +14,11 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@primevue/themes": "^4.0.7",
         "@vitejs/plugin-vue": "^5.1.2",
         "pinia": "^2.2.2",
         "primeicons": "^7.0.0",
+        "primevue": "^4.0.7",
         "vue": "^3.4.38",
         "vue-router": "^4.4.3"
     }

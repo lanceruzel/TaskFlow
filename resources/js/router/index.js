@@ -1,26 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import AboutView from '../views/AboutView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
+import DefaultLayout from '../layouts/DefaultLayout.vue';
+import authRoutes from './auth';
+import homeRoutes from './home';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     linkExactActiveClass: 'active',
     routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: HomeView,
-        },
-        {
-            path: '/about',
-            name: 'about',
-            component: AboutView,
-        },
+        ...authRoutes,
+        ...homeRoutes,
         {
             path: '/:catchAll(.*)',
             name: 'not-found',
-            component: NotFoundView
+            component: NotFoundView,
+            meta: { layout: DefaultLayout },
         },
     ]
 });
