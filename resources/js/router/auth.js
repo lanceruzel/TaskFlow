@@ -1,6 +1,6 @@
 import DefaultLayout from "../layouts/DefaultLayout.vue";
-import SignInView from '../views/SignInView.vue';
-import SignUpView from '../views/SignUpView.vue';
+import SignInView from '../views/auth/SignInView.vue';
+import SignUpView from '../views/auth/SignUpView.vue';
 
 export default [
     {
