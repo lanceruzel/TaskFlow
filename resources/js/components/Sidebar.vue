@@ -3,7 +3,7 @@ import Button from 'primevue/button';
 </script>
 
 <template>
-    <div class="w-[280px] h-full bg-zinc-800 text-zinc-200">
+    <div class="w-[350px] h-full bg-zinc-800 text-zinc-200">
         <div class="text-center text-2xl font-semibold bg-zinc-700/60 py-5">
             TaskFlow
         </div>
