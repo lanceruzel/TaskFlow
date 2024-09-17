@@ -7,7 +7,7 @@ import Button from 'primevue/button';
 </script>
 
 <template>
-    <div class="w-screen h-screen flex items-center justify-center">
+    <div class="w-full h-full flex items-center justify-center">
         <Card class="w-[400px]">
             <template #title>
                 <h1 class="text-3xl">Signup</h1>
