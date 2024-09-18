@@ -1,5 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router';
+import { useToast } from 'primevue/usetoast';
 </script>
 
 <template>

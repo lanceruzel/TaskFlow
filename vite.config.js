@@ -11,13 +11,15 @@ export default defineConfig({
         vue(),
     ],
     server: {
-        // port: 5500,
-        proxy: {
-          '/api': {
-            target: 'http://localhost:8000',
-            changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, '')
-          }
-        }
+      proxy: {
+        "/api": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },  
+      },
     },
+  },
 });
