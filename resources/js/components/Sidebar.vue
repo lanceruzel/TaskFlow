@@ -1,6 +1,7 @@
 <script setup>
 import Button from 'primevue/button';
 import ScrollPanel from 'primevue/scrollpanel';
+import InviteMemberDialog from './InviteMemberDialog.vue';
 </script>
 
 <template>
@@ -27,7 +28,7 @@ import ScrollPanel from 'primevue/scrollpanel';
                 </ScrollPanel>
 
                 <div class="flex items-center justify-center py-6">
-                    <Button label="+ Invite Members" size="small" rounded class="!bg-transparent !border-transparent hover:!border-zinc-400 !px-7" />
+                    <InviteMemberDialog />
                 </div>
             </div>
         </div>
