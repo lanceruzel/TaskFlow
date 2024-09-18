@@ -7,12 +7,18 @@ export default [
         path: '/signin',
         name: 'sign-in',
         component: SignInView,
-        meta: { layout: DefaultLayout }
+        meta: { 
+            layout: DefaultLayout,
+            guest: true
+        }
     },
     {
         path: '/signup',
         name: 'sign-up',
         component: SignUpView,
-        meta: { layout: DefaultLayout }
+        meta: { 
+            layout: DefaultLayout,
+            guest: true
+        }
     },
 ]

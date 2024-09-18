@@ -7,7 +7,10 @@ export default [
         path: '/',
         name: 'home',
         component: HomeView,
-        meta: { layout: MainLayout },
+        meta: { 
+            layout: MainLayout,
+            auth: true
+        },
     },
     {
         path: '/about',
