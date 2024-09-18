@@ -5,6 +5,7 @@ import Avatar from 'primevue/avatar';
 import ScrollPanel from 'primevue/scrollpanel';
 import Panel from 'primevue/panel';
 import Checkbox from 'primevue/checkbox';
+import AddTaskDialog from '../components/AddTaskDialog.vue';
 </script>
 
 <template>
@@ -13,7 +14,8 @@ import Checkbox from 'primevue/checkbox';
             <template #title>
                 <div class="flex items-center justify-between">
                     <p>Assigned</p>
-                    <Button icon="pi pi-plus" severity="secondary" text rounded />
+                    
+                    <AddTaskDialog />
                 </div>
             </template>
             <template #content>
