@@ -18,11 +18,12 @@ const visible = ref(false);
             <span class="text-surface-500 dark:text-surface-400 block">Input task details.</span>
 
             <div class="flex flex-col gap-1 my-3">
-                <label class="font-semibold">Title</label>
+                <label class="font-semibold">Task Title</label>
                 <InputText />
             </div>
 
-            <div class="flex flex-col gap-1 mt-5 mb-10">
+            <!-- SubTasks Form Fields -->
+            <!-- <div class="flex flex-col gap-1 mt-5 mb-10">
                 <div class="flex items-center justify-between">
                     <p class="font-semibold">Subtasks</p>
                     <Button label="+ Add" size="small" text/>
@@ -50,9 +51,8 @@ const visible = ref(false);
                         <Divider v-if="i !== 10" />
                     </li>
                 </ul>
-            </div>
+            </div> -->
             
-
             <div class="flex justify-end gap-2">
                 <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
                 <Button type="button" label="Add" @click="visible = false"></Button>
