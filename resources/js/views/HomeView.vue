@@ -19,7 +19,7 @@ import AddTaskDialog from '../components/AddTaskDialog.vue';
                 </div>
             </template>
             <template #content>
-                <ScrollPanel class="w-full h-[63dvh] px-1">
+                <ScrollPanel class="w-full h-[calc(100dvh-17rem)] px-1">
                     <Panel v-for="i in 20" :key="i" class="py-3 my-3 mx-1 shadow-sm" toggleable collapsed="false">
                         <template #header>
                             <div class="leading-tight">
@@ -56,7 +56,7 @@ import AddTaskDialog from '../components/AddTaskDialog.vue';
                 </div>
             </template>
             <template #content>
-                <ScrollPanel class="w-full h-[63dvh] px-1">
+                <ScrollPanel class="w-full h-[calc(100dvh-17rem)] px-1">
                     <Panel v-for="i in 20" :key="i" class="py-3 my-3 mx-1 shadow-sm" toggleable collapsed="false">
                         <template #header>
                             <div class="leading-tight">
@@ -94,7 +94,7 @@ import AddTaskDialog from '../components/AddTaskDialog.vue';
                 </div>
             </template>
             <template #content>
-                <ScrollPanel class="w-full h-[63dvh] px-1">
+                <ScrollPanel class="w-full h-[calc(100dvh-17rem)] px-1">
                     <Panel v-for="i in 20" :key="i" class="py-3 my-3 mx-1 shadow-sm" toggleable collapsed="false">
                         <template #header>
                             <div class="leading-tight">
