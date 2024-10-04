@@ -1,5 +1,4 @@
 <script setup>
-import Button from 'primevue/button';
 import ScrollPanel from 'primevue/scrollpanel';
 import InviteMemberDialog from './InviteMemberDialog.vue';
 </script>
@@ -15,7 +14,7 @@ import InviteMemberDialog from './InviteMemberDialog.vue';
                 <p>Members</p>
             </div>
 
-            <div class="flex flex-col items-center justify-between h-full">
+            <div class="flex flex-col items-center justify-between h-full px-2">
                 <ScrollPanel class="w-full h-[calc(100dvh-12rem)]">
                     <div v-for="i in 20" :key="i" class="hover:bg-zinc-700">
                         <div class="leading-snug py-3 px-3 cursor-pointer">
