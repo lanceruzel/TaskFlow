@@ -19,23 +19,20 @@ export const useAuthStore = defineStore('authStore', {
         async getUser(){
             if(localStorage.getItem('token')){
                 try{
-                    await axios.get('/api/user', {
+                    const response = await axios.get('/api/user', {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('token')}`
                         }
-                    })
-                    .then((response) => {
+                    });
+
+                    if(response.status === 200){
                         //Get logged in user and clear errors
                         this.user = response.data;
                         this.errors = {};
-                    })
-                    .catch((error) => {
-                        console.log('Inside Axios getUser:');
-                        console.error(error);  
-                    });
-                        
-                }catch(err){
-                    console.error(err);
+                    }
+                }catch(error){
+                    console.log('Inside Axios getUser:');
+                    console.error(error);  
                 }
             }
         },
@@ -43,74 +40,71 @@ export const useAuthStore = defineStore('authStore', {
             this.isLoading = true;
 
             try{
-                await axios.post(`/api/auth/${route}`, formData)
-                    .then((response) => {
-                        const data = response.data;
+                const response = await axios.post(`/api/auth/${route}`, formData);
 
-                        if(data){
-                            //Check if user is signing in or signing up
-                            if(route === 'login'){
-                                //Get message if have
-                                if(data.message){
-                                    this.message = data.message;
-                                    return;
-                                }
+                if(response.status === 200){
+                    const data = response.data;
 
-                                //Set token and user data
-                                localStorage.setItem('token', data.token);
-                                this.user = data.user;
-
-                                //Re-route user
-                                this.router.push({ name: 'home' });
-                            }else{
-                                //Get message
+                    if(data){
+                        //Check if user is signing in or signing up
+                        if(route === 'login'){
+                            //Get message if have
+                            if(data.message){
                                 this.message = data.message;
-
-                                //Re-route user
-                                this.router.push({ name: 'sign-in' });
+                                return;
                             }
-                        }
-                    })
-                    .catch((error) => {
-                        //Get form input errors
-                        if(error.response.data.errors){
-                            this.errors = error.response.data.errors;
-                        }   
-                    })
-            }catch(err){
-                console.error(err);
-            }
 
-            this.isLoading = false;
-        },
-        async logout(){
-            if(localStorage.getItem('token')){
-                try{
-                    await axios.post('/api/auth/logout', null, {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`
-                        }
-                    }).then((response) => {
-                        if(response.status === 200){
+                            //Set token and user data
+                            localStorage.setItem('token', data.token);
+                            this.user = data.user;
 
-                            //Clear data
-                            this.user = null;
-                            this.errors = {};
-                            localStorage.removeItem('token');
-                            
-                            //Get message detail
-                            this.message = response.data.message;
+                            //Re-route user
+                            this.router.push({ name: 'home' });
+                        }else{
+                            //Get message
+                            this.message = data.message;
 
                             //Re-route user
                             this.router.push({ name: 'sign-in' });
                         }
-                    }).catch((error) => {
-                        console.log('Inside Axios logout:');
-                        console.error(error);  
+                    }
+                }
+            }catch(error){
+                //Get form input errors
+                if(error.response.data.errors){
+                    this.errors = error.response.data.errors;
+                }  
+
+                console.log('Inside Axios authenticate:');
+                console.error(error);
+            }finally{
+                this.isLoading = false;
+            }
+        },
+        async logout(){
+            if(localStorage.getItem('token')){
+                try{
+                    const response = await axios.post('/api/auth/logout', null, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
                     });
+
+                    if(response.status === 200){
+                        //Clear data
+                        this.user = null;
+                        this.errors = {};
+                        localStorage.removeItem('token');
                         
-                }catch(err){
-                    console.error(err);
+                        //Get message detail
+                        this.message = response.data.message;
+
+                        //Re-route user
+                        this.router.push({ name: 'sign-in' });
+                    }
+                }catch(error){
+                    console.log('Inside Axios logout:');
+                    console.error(error); 
                 }
             }
         }
