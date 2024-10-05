@@ -26,7 +26,7 @@ onMounted(async () => {
                     class: 'flex gap-3 items-center',
                 },
                 root: {
-                    class: 'w-[calc(100dvw-36rem)]'
+                    class: 'w-[calc(100dvw-38.8rem)] mt-3.5'
                 }
             }">
                 <div v-for="project in projectStore.projects" :key="project.id" class="w-[180px] max-w-[180px] bg-gray-50 border flex items-center justify-center gap-3 px-5 py-3 rounded-lg cursor-pointer hover:shadow transition-all">
@@ -42,7 +42,7 @@ onMounted(async () => {
             </ScrollPanel>
         </nav>
 
-        <nav class="flex items-center justify-start gap-1">
+        <nav class="flex items-center justify-start gap-3 px-3">
             <NotificationPopover/>
             <ProfileMenu />
         </nav>
