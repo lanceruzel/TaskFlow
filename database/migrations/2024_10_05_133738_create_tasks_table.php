@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedInteger('project_id');
-            $table->foreign('project_id')->references('id')->on('projects');
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->cascadeOnDelete();
 
-            $table->unsignedInteger(column: 'assigned_id')->nullable();
-            $table->foreign('assigned_id')->references('id')->on('users');
+            $table->unsignedBigInteger(column: 'assigned_id')->nullable();
+            $table->foreign('assigned_id')->references('id')->on('users')->nullOnDelete();
 
             $table->string('title');
             $table->string('status');

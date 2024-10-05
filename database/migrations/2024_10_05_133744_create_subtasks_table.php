@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('subtasks', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedInteger('task_id');
-            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->unsignedBigInteger('task_id');
+            $table->foreign('task_id')->references('id')->on('tasks')->cascadeOnDelete();
 
             $table->string('title');
             $table->boolean(column: 'is_done');

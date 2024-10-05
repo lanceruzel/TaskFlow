@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users');
+            $table->unsignedBigInteger('owner_id');
+            $table->foreign('owner_id')->references('id')->on('users')->cascadeOnDelete();
 
             $table->string('project_title');
 
