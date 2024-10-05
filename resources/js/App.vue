@@ -1,10 +1,11 @@
 <script setup>
 import { RouterView } from 'vue-router';
-import { useToast } from 'primevue/usetoast';
+import Toast from 'primevue/toast';
 </script>
 
 <template>
     <component :is="$route.meta.layout || 'div'">
+        <Toast />
         <RouterView />
     </component>
 </template>

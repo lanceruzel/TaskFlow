@@ -1,5 +1,5 @@
 <script setup>
-import Menubar from '@/components/Menubar.vue';
+import Menubar from '../components/Menubar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import ProjectNav from '../components/ProjectNav.vue';
 </script>

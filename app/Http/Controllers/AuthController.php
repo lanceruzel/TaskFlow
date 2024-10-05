@@ -29,6 +29,7 @@ class AuthController extends Controller
             'token' => $token->plainTextToken,
             'message' => [
                     'severity' => 'success',
+                    'summary' => 'Success',
                     'detail' => 'Account created. You can now log in.',
                 ]
         ];
@@ -46,6 +47,7 @@ class AuthController extends Controller
             return [
                 'message' => [
                     'severity' => 'error',
+                    'summary' => 'Error',
                     'detail' => 'The provided credentials are incorrect.',
                 ]
             ];
@@ -61,10 +63,11 @@ class AuthController extends Controller
 
     public function logout(Request $request){
         $request->user()->tokens()->delete();
-
+        
         return [
             'message' => [
                 'severity' => 'success',
+                'summary' => 'Success',
                 'detail' => 'You have been logged out.',
             ]
         ];

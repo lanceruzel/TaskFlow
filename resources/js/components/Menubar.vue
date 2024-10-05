@@ -2,13 +2,6 @@
 import Avatar from 'primevue/avatar';
 </script>
 
-<style>
-#test {
-    clip-path: polygon(0% 0%, 75% 0, 100% 50%, 75% 100%, 0% 100%);
-      
-    }
-</style>
-
 <template>
     <div class="w-full border-b-2 bg-white transition-all px-3">
         <nav class="flex gap-3">

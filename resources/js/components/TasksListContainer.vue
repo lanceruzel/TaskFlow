@@ -22,7 +22,7 @@ const props = defineProps(['status']);
         </template>
         <template #content>
             <ScrollPanel class="w-full h-[calc(100dvh-17rem)] px-2">
-                <Panel v-for="i in 20" :key="i" class="py-3 my-3 mx-1 shadow-sm" toggleable :collapsed="false">
+                <Panel v-for="i in 20" :key="i" class="py-3 my-3 mx-1 shadow-sm" toggleable collapsed="false">
                     <template #header>
                         <div class="leading-tight">
                             <p>UI Layout</p>
