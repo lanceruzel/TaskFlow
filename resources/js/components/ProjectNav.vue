@@ -46,7 +46,7 @@ onMounted(async () => {
                     :class="{ 'border-blue-500 bg-blue-100' : selectedProject && selectedProject.id && selectedProject.id === project.id }"
                     @click="getSelectedProject(project.id)"
                 >
-                <div>
+                    <div>
                         <Avatar v-if="selectedProject && selectedProject.id && selectedProject.id === project.id" icon="pi pi-check" class="!bg-blue-200" shape="circle" />
                         <Avatar v-else icon="pi pi-user" shape="circle" />
                     </div>
