@@ -21,7 +21,7 @@ const props = defineProps(['status']);
             </div>
         </template>
         <template #content>
-            <ScrollPanel class="w-full h-[calc(100dvh-17rem)] px-2">
+            <ScrollPanel class="w-full h-[calc(100dvh-17rem)] p-2">
                 <Panel v-for="i in 20" :key="i" class="py-3 my-3 mx-1 shadow-sm" toggleable collapsed="false">
                     <template #header>
                         <div class="leading-tight">
