@@ -7,12 +7,24 @@ import ScrollPanel from 'primevue/scrollpanel';
 
 import { useProjectStore } from '../stores/project';
 import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const projectStore = useProjectStore();
-const { getProjects } = projectStore;
+const { getProjects, getSelectedProject } = projectStore;
+const { selectedProject, projects } = storeToRefs(projectStore);
+
+const loadDefaultSelectedProject = () => {
+    if(selectedProject.value === null){
+        if(projects.value[0]){
+            getSelectedProject(projects.value[0].id);
+        }
+    }
+}
 
 onMounted(async () => {
     await getProjects();
+
+    loadDefaultSelectedProject();
 });
 </script>
 
@@ -29,9 +41,14 @@ onMounted(async () => {
                     class: 'w-[calc(100dvw-38.8rem)] mt-3.5'
                 }
             }">
-                <div v-for="project in projectStore.projects" :key="project.id" class="w-[180px] max-w-[180px] bg-gray-50 border flex items-center justify-center gap-3 px-5 py-3 rounded-lg cursor-pointer hover:shadow transition-all">
-                    <div>
-                        <Avatar icon="pi pi-user" class="bg-green-700" shape="circle" />
+                <div v-for="project in projectStore.projects" :key="project.id" 
+                    class="w-[180px] max-w-[180px] bg-gray-50 border flex items-center justify-center gap-3 px-5 py-3 rounded-lg cursor-pointer hover:shadow transition-all"
+                    :class="{ 'border-blue-500 bg-blue-100' : selectedProject && selectedProject.id && selectedProject.id === project.id }"
+                    @click="getSelectedProject(project.id)"
+                >
+                <div>
+                        <Avatar v-if="selectedProject && selectedProject.id && selectedProject.id === project.id" icon="pi pi-check" class="!bg-blue-200" shape="circle" />
+                        <Avatar v-else icon="pi pi-user" shape="circle" />
                     </div>
 
                     <div class="w-full leading-tight truncate">

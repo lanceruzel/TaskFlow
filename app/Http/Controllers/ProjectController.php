@@ -32,8 +32,9 @@ class ProjectController extends Controller
         ];
     }
 
-    public function show(Request $request){
-        return Project::firstOrFail($request->id);
+    public function show($id){
+        $project = Project::with(['tasks.user'])->findOrFail($id);
+        return response()->json($project);
     }
 
     public function update(Request $request){

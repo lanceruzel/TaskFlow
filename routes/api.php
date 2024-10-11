@@ -15,3 +15,4 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth
 
 Route::get('/project/index', [ProjectController::class, 'index'])->middleware('auth:sanctum');
 Route::post('/project/store', [ProjectController::class, 'store'])->middleware('auth:sanctum');
+Route::get('/project/show/{id}', [ProjectController::class, 'show'])->middleware('auth:sanctum');

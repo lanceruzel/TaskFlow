@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 export const useProjectStore = defineStore('authProject', {
     state: () => {
         return {
-            projects: null,
+            projects: [],
             selectedProject: null,
             errors: {},
             message: '',
@@ -26,6 +26,7 @@ export const useProjectStore = defineStore('authProject', {
                         //Get projects
                         this.projects = response.data.map((element) => {
                             return {
+                                id: element.id,
                                 project_title: element.project_title,
                                 percentage: 1
                             }
@@ -77,6 +78,24 @@ export const useProjectStore = defineStore('authProject', {
                     return false;
                 }finally{
                     this.isLoading = false;
+                }
+            }
+        },
+        async getSelectedProject(id){
+            if(localStorage.getItem('token')){
+                try{
+                    const response = await axios.get(`/api/project/show/${id}`, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+    
+                    if(response.status === 200){
+                        this.selectedProject = response.data;
+                    }
+                }catch(error){
+                    console.log('Inside Axios getSelectedProject:');
+                    console.error(error);  
                 }
             }
         }
