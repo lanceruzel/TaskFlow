@@ -2,12 +2,19 @@
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import InputText from "primevue/inputtext";
-import Divider from "primevue/divider";
-import Inplace from "primevue/inplace";
+import Select from "primevue/select";
 
 import { ref } from "vue";
 
 const visible = ref(false);
+
+const options = [
+    { name: "TEst", value: 1 },
+    { name: "TEst", value: 1 },
+    { name: "TEst", value: 1 },
+    { name: "TEst", value: 1 },
+    { name: "TEst", value: 1 }
+];
 </script>
 
 <template>
@@ -20,6 +27,11 @@ const visible = ref(false);
             <div class="flex flex-col gap-1 my-3">
                 <label class="font-semibold">Task Title</label>
                 <InputText />
+            </div>
+
+            <div class="flex flex-col gap-1 my-3">
+                <label class="font-semibold">Assign</label>
+                <Select :options="options" optionLabel="name" placeholder="Default" checkmark :highlightOnSelect="false" />
             </div>
 
             <!-- SubTasks Form Fields -->
