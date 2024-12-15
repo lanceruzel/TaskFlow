@@ -11,8 +11,8 @@ export const useAuthStore = defineStore('authStore', {
         };
     },
     getters: {
-        welcomeUser: (state) => {
-            `Welcome back, ${state.user}!`
+        fullname: (state) => {
+            return `${state.user.first_name} ${state.user.last_name}`
         }
     },
     actions: {
