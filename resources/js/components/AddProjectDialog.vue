@@ -4,16 +4,14 @@ import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import { useProjectStore } from '../stores/project';
 import { storeToRefs } from 'pinia';
-import { useToast } from 'primevue/usetoast';
 
 const projectStore = useProjectStore();
 const { storeProject } = projectStore;
 const { errors } = storeToRefs(projectStore);
 const visible = ref(false);
-const toast = useToast();
 
 const formData = reactive({
     project_title: '',
@@ -27,6 +25,12 @@ async function submit(){
         formData.project_title = '';
     }
 }
+
+watch(visible, (newValue) => {
+    if(!newValue){
+        formData.project_title = '';
+    }
+});
 
 onMounted(() => {
     errors.value = {};
@@ -57,7 +61,7 @@ onMounted(() => {
 
             <div class="flex justify-end gap-2">
                 <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="submit" label="Add" :loading="projectStore.isLoading"></Button>
+                <Button type="submit" label="Add" :loading="projectStore.isFormLoading"></Button>
             </div>
         </form>
     </Dialog>

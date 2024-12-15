@@ -10,7 +10,7 @@ import ProjectNav from '../components/ProjectNav.vue';
 
         <div class="flex flex-col h-full w-full">
             <ProjectNav />
-            <Menubar />
+            <!-- <Menubar /> -->
             
             <div class="p-5 flex-1 relative">
                 <slot />

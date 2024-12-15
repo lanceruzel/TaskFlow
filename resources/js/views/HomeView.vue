@@ -3,10 +3,16 @@ import ScrollPanel from 'primevue/scrollpanel';
 import Card from 'primevue/card';
 import AddTaskDialog from '../components/AddTaskDialog.vue';
 import interact from 'interactjs';
+import { useProjectStore } from '../stores/project'; 
+import BeatLoader from 'vue-spinner/src/BeatLoader.vue';
+import { watch } from 'vue';
 
 let previousDropzone = null;
 let previewElement = null;
 let hoverClone = null;
+
+const projectStore = useProjectStore();
+const { getFilteredTasks } = projectStore;
 
 interact('*[data-dropzone]')
   .dropzone({
@@ -17,7 +23,7 @@ interact('*[data-dropzone]')
         const taskId = droppedElement.getAttribute('data-taskid');
         
         // Remove the element from the previous dropzone, if it exists
-        if (previousDropzone && previousDropzone !== newDropzone && previousDropzone.contains(droppedElement)) {
+        if(previousDropzone && previousDropzone !== newDropzone && previousDropzone.contains(droppedElement)){
             previousDropzone.removeChild(droppedElement);
         }
 
@@ -122,10 +128,22 @@ function updatePreviewPosition(x, y) {
                     content: {
                         'data-dropzone': true,
                     },
-                }" class="w-full h-[calc(100dvh-19rem)] p-2 !z-20">
-                    <div v-for="i in 3" :key="i" class="p-3 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="i">
-                        <p>Assined Layout</p>
-                        <small>Frank Molina</small>
+                }" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
+                    <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
+                        <BeatLoader />
+                    </div>
+                    
+                    <div v-else v-for="task in getFilteredTasks('assigned')" :key="task.id" class="p-3 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                        <p v-text="task.title"></p>
+                        <small>
+                            <span v-if="task.user">
+                                {{ task.user.name }}
+                            </span>
+
+                            <span v-else>
+                                N/A
+                            </span>
+                        </small>
                     </div>
                 </ScrollPanel>
             </template>
@@ -143,10 +161,22 @@ function updatePreviewPosition(x, y) {
                     content: {
                         'data-dropzone': true,
                     },
-                }" class="w-full h-[calc(100dvh-19rem)] p-2 !z-20">
-                    <div v-for="i in 3" :key="i" class="p-3 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="i">
-                        <p>In Progress Layout</p>
-                        <small>Frank Molina</small>
+                }" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
+                    <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
+                        <BeatLoader />
+                    </div>
+                    
+                    <div v-else v-for="task in getFilteredTasks('in-progress')" :key="task.id" class="p-3 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                        <p v-text="task.title"></p>
+                        <small>
+                            <span v-if="task.user">
+                                {{ task.user.name }}
+                            </span>
+
+                            <span v-else>
+                                N/A
+                            </span>
+                        </small>
                     </div>
                 </ScrollPanel>
             </template>
@@ -164,10 +194,22 @@ function updatePreviewPosition(x, y) {
                     content: {
                         'data-dropzone': true,
                     },
-                }" class="w-full h-[calc(100dvh-19rem)] p-2 !z-20">
-                    <div v-for="i in 3" :key="i" class="p-3 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="i">
-                        <p>Done Layout</p>
-                        <small>Frank Molina</small>
+                }" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
+                    <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
+                        <BeatLoader />
+                    </div>
+                    
+                    <div v-else v-for="task in getFilteredTasks('done')" :key="task.id" class="p-3 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                        <p v-text="task.title"></p>
+                        <small>
+                            <span v-if="task.user">
+                                {{ task.user.name }}
+                            </span>
+
+                            <span v-else>
+                                N/A
+                            </span>
+                        </small>
                     </div>
                 </ScrollPanel>
             </template>
