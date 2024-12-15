@@ -5,7 +5,8 @@ import Avatar from 'primevue/avatar';
 import { ref } from "vue";
 import { useAuthStore } from '../stores/auth';
 
-const { logout } = useAuthStore();
+const authStore = useAuthStore();
+const { logout } = authStore;
 
 const op = ref();
 
@@ -16,7 +17,10 @@ const toggle = (event) => {
 
 <template>
     <div class="card flex justify-center">
-        <Avatar type="button" icon="pi pi-user" shape="circle" class="me-1" @click="toggle"  aria-haspopup="true" aria-controls="overlay_menu"/>
+        <div class="flex items-center justify-center gap-2 cursor-pointer" @click="toggle"  aria-haspopup="true" aria-controls="overlay_menu">
+            <Avatar icon="pi pi-user" shape="circle" class="me-1 !bg-green-100 border border-green-200 !text-green-700" />
+            <p class="leading-none text-md text-center font-medium">Welcome back, <span v-text="authStore.fullname"></span>!</p>
+        </div>
 
         <Popover ref="op">
             <div class="flex flex-col">

@@ -148,17 +148,8 @@ async function updateStatus(zone, taskId){
                         <BeatLoader />
                     </div>
                     
-                    <div v-else v-for="task in getFilteredTasks('assigned')" :key="task.id" class="p-3 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                    <div v-else v-for="task in getFilteredTasks('assigned')" :key="task.id" class="p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
                         <p v-text="task.title"></p>
-                        <small>
-                            <span v-if="task.user">
-                                {{ task.user.name }}
-                            </span>
-
-                            <span v-else>
-                                N/A
-                            </span>
-                        </small>
                     </div>
                 </ScrollPanel>
             </template>
@@ -181,17 +172,8 @@ async function updateStatus(zone, taskId){
                         <BeatLoader />
                     </div>
                     
-                    <div v-else v-for="task in getFilteredTasks('in-progress')" :key="task.id" class="p-3 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                    <div v-else v-for="task in getFilteredTasks('in-progress')" :key="task.id" class="p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
                         <p v-text="task.title"></p>
-                        <small>
-                            <span v-if="task.user">
-                                {{ task.user.name }}
-                            </span>
-
-                            <span v-else>
-                                N/A
-                            </span>
-                        </small>
                     </div>
                 </ScrollPanel>
             </template>
@@ -214,17 +196,8 @@ async function updateStatus(zone, taskId){
                         <BeatLoader />
                     </div>
                     
-                    <div v-else v-for="task in getFilteredTasks('done')" :key="task.id" class="p-3 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                    <div v-else v-for="task in getFilteredTasks('done')" :key="task.id" class="p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
                         <p v-text="task.title"></p>
-                        <small>
-                            <span v-if="task.user">
-                                {{ task.user.name }}
-                            </span>
-
-                            <span v-else>
-                                N/A
-                            </span>
-                        </small>
                     </div>
                 </ScrollPanel>
             </template>

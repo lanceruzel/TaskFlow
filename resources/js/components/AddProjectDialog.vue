@@ -38,15 +38,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="w-[180px] max-w-[180px] bg-green-50 border border-green-500 flex items-center justify-center gap-3 px-3 py-4 rounded-lg cursor-pointer hover:shadow transition-all" @click="visible = true">
-        <div>
-            <Avatar icon="pi pi-plus" class="!bg-green-200" shape="circle" />
-        </div>
-        
-        <div class="leading-tight">
-            <p class="font-medium text-nowrap">Add Project</p>
-        </div>
-    </div>
+    <Button label="+ Add project" @click="visible = true" size="small" rounded class="!bg-transparent !border-transparent hover:!border-zinc-400 !px-7" />
 
     <Dialog v-model:visible="visible" modal header="Add Project" :style="{ width: '25rem' }">
 

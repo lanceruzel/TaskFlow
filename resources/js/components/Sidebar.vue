@@ -1,6 +1,28 @@
 <script setup>
 import ScrollPanel from 'primevue/scrollpanel';
-import InviteMemberDialog from './InviteMemberDialog.vue';
+import AddProjectDialog from './AddProjectDialog.vue';
+
+import { useProjectStore } from '../stores/project';
+import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+
+const projectStore = useProjectStore();
+const { getProjects, getSelectedProject } = projectStore;
+const { selectedProject, projects } = storeToRefs(projectStore);
+
+const loadDefaultSelectedProject = () => {
+    if(selectedProject.value === null){
+        if(projects.value[0]){
+            getSelectedProject(projects.value[0].id);
+        }
+    }
+}
+
+onMounted(async () => {
+    await getProjects();
+
+    loadDefaultSelectedProject();
+});
 </script>
 
 <template>
@@ -11,23 +33,28 @@ import InviteMemberDialog from './InviteMemberDialog.vue';
 
         <div class="py-3">
             <div class="text-sm font-semibold uppercase tracking-widest text-zinc-500 px-3">
-                <p>Members</p>
+                <p>Projects</p>
             </div>
 
             <div class="flex flex-col items-center justify-between h-full px-2">
                 <ScrollPanel class="w-full h-[calc(100dvh-12rem)]">
-                    <div v-for="i in 20" :key="i" class="hover:bg-zinc-700">
-                        <div class="leading-snug py-3 px-3 cursor-pointer">
-                            <p>Frank Molina</p>
-                            <p class="text-sm text-zinc-500">2 Projects & 6 tasks</p>
+                    <div v-for="project in projectStore.projects" 
+                        :key="project.id" 
+                        class="hover:bg-zinc-700 rounded"
+                        :class="{'bg-zinc-900': selectedProject && selectedProject.id && selectedProject.id === project.id}"
+                        @click="getSelectedProject(project.id)"
+                    >
+                        <div class="leading-snug py-3 px-3 cursor-pointer truncate">
+                            <p v-text="project.project_title" class="truncate"></p>
+                            <p class="text-base text-zinc-500"><span>{{ project.tasks.length }}</span> tasks</p>
                         </div>
 
-                        <hr v-if="i != 5" class="border-zinc-700 border">
+                        <hr class="border-zinc-700 border">
                     </div>
                 </ScrollPanel>
 
                 <div class="flex items-center justify-center py-6">
-                    <InviteMemberDialog />
+                    <AddProjectDialog />
                 </div>
             </div>
         </div>

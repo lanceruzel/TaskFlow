@@ -25,13 +25,7 @@ export const useProjectStore = defineStore('authProject', {
     
                     if(response.status === 200){
                         //Get projects
-                        this.projects = response.data.map((element) => {
-                            return {
-                                id: element.id,
-                                project_title: element.project_title,
-                                percentage: 1,
-                            }
-                        });
+                        this.projects = response.data;
                     }
                 }catch(error){
                     console.log('Inside Axios getProjects:');
@@ -95,7 +89,6 @@ export const useProjectStore = defineStore('authProject', {
     
                     if(response.status === 200){
                         this.selectedProject = response.data;
-                        console.log(this.selectedProject)
                     }
                 }catch(error){
                     console.log('Inside Axios getSelectedProject:');
@@ -122,6 +115,7 @@ export const useProjectStore = defineStore('authProject', {
                     if(response.status === 200){
                         //Get tasks
                         this.selectedProject.tasks = response.data;
+
                     }
                 }catch(error){
                     console.log('Inside Axios getTasks:');
@@ -152,6 +146,7 @@ export const useProjectStore = defineStore('authProject', {
             
                         //Refresh tasks
                         this.getTasks();
+                        this.getProjects();
             
                         //Show response message
                         this.toast.add({

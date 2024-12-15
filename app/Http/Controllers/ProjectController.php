@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     public function index(Request $request){
-        return response()->json(Project::where('owner_id', $request->user()->id)->orderBy('id','desc')->get());
+        return response()->json(Project::where('owner_id', $request->user()->id)->with('tasks')->orderBy('id','asc')->get());
     }
 
     public function store(Request $request){
