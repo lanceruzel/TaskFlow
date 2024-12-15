@@ -80,7 +80,7 @@ interact('*[data-dropzone]')
             previewElement = event.target.cloneNode(true);
             
             //Add necessary styles to make it visible and follow the cursor
-            previewElement.classList.add('bg-white', 'w-[300px]', 'py-2', 'pe-3', 'z-[1000]', 'opacity-70', 'pointer-events-none', 'absolute');
+            previewElement.classList.add('bg-white', 'w-[300px]', 'p-4', 'pe-3', 'z-[1000]', 'opacity-70', 'pointer-events-none', 'absolute');
             
             // Append the preview to the body
             document.body.appendChild(previewElement);
