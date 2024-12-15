@@ -18,5 +18,6 @@ Route::get('/project/index', [ProjectController::class, 'index'])->middleware('a
 Route::post('/project/store', [ProjectController::class, 'store'])->middleware('auth:sanctum');
 Route::get('/project/show/{id}', [ProjectController::class, 'show'])->middleware('auth:sanctum');
 
-Route::post('/task/index', [TaskController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/task/show/{id}', [TaskController::class, 'show'])->middleware('auth:sanctum');
 Route::post('/task/store', [TaskController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/task/update/{id}', [TaskController::class, 'update'])->middleware('auth:sanctum');

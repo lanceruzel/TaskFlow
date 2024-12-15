@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     //
-    public function index(Request $request){
-        return response()->json(Task::where('project_id', $request->project_id)->orderBy('updated_at','desc')->get());
+    public function show($id){
+        return response()->json(Task::where('project_id', $id)->orderBy('updated_at','asc')->get());
     }
 
     public function store(Request $request){
@@ -29,6 +29,24 @@ class TaskController extends Controller
                 'severity' => 'success',
                 'summary' => 'Success',
                 'detail' => 'Task has been successfully added.',
+            ]
+        ];
+    }
+
+    public function update($id, Request $request){
+        $validated = $request->validate([
+            'status' => 'required',
+        ]);
+
+        $task = Task::find($id);
+        $task->status = $validated['status'];
+        $task->save();
+
+        return [
+            'message' => [
+                'severity' => 'success',
+                'summary' => 'Success',
+                'detail' => 'Task has been successfully updated.',
             ]
         ];
     }

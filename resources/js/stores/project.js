@@ -30,7 +30,6 @@ export const useProjectStore = defineStore('authProject', {
                                 id: element.id,
                                 project_title: element.project_title,
                                 percentage: 1,
-                                tasks: element.tasks
                             }
                         });
                     }
@@ -114,7 +113,7 @@ export const useProjectStore = defineStore('authProject', {
         async getTasks(){
             if(localStorage.getItem('token') && this.selectedProject != null){
                 try{
-                    const response = await axios.post('/api/task/index', { 'project_id': this.selectedProject.id }, {
+                    const response = await axios.get(`/api/task/show/${this.selectedProject.id}`, {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('token')}`
                         }
@@ -131,7 +130,6 @@ export const useProjectStore = defineStore('authProject', {
             }
         },
         async storeTask(formData){
-            console.log(formData);
             if(localStorage.getItem('token')){
                 try{
                     this.isFormLoading = true;
@@ -175,6 +173,27 @@ export const useProjectStore = defineStore('authProject', {
                     return false;
                 }finally{
                     this.isFormLoading = false;
+                }
+            }
+        },
+        async updateTaskStatus(id, status){
+            if(localStorage.getItem('token')){
+                try{
+                    const response = await axios.put(`/api/task/update/${id}`, { status: status,}, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+        
+                    if(response.status === 200){
+                        //Refresh tasks
+                        // this.getTasks();
+                        return true;
+                    } 
+                }catch (error){
+                    //Show error
+                    console.error('Error in update task:', error);
+                    return false;
                 }
             }
         }

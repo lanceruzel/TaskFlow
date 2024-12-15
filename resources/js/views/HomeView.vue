@@ -5,14 +5,13 @@ import AddTaskDialog from '../components/AddTaskDialog.vue';
 import interact from 'interactjs';
 import { useProjectStore } from '../stores/project'; 
 import BeatLoader from 'vue-spinner/src/BeatLoader.vue';
-import { watch } from 'vue';
 
 let previousDropzone = null;
 let previewElement = null;
 let hoverClone = null;
 
 const projectStore = useProjectStore();
-const { getFilteredTasks } = projectStore;
+const { getFilteredTasks, updateTaskStatus } = projectStore;
 
 interact('*[data-dropzone]')
   .dropzone({
@@ -31,7 +30,9 @@ interact('*[data-dropzone]')
         newDropzone.appendChild(droppedElement);
 
         // Update the previousDropzone to the new one
-        previousDropzone = newDropzone;
+        previousDropzone = null;
+
+        updateStatus(newDropzone.parentElement.parentElement.parentElement.parentElement.parentElement.id, taskId);
     },
     ondropdeactivate: function (event) {
         const dropzone = event.target;
@@ -75,28 +76,28 @@ interact('*[data-dropzone]')
     // autoScroll: true,
     listeners: {
         start (event) {
-        // Create a preview of the dragged element
-        previewElement = event.target.cloneNode(true);
-        
-        //Add necessary styles to make it visible and follow the cursor
-        previewElement.classList.add('bg-white', 'w-[300px]', 'py-2', 'pe-3', 'z-[1000]', 'opacity-70', 'pointer-events-none', 'absolute');
-        
-        // Append the preview to the body
-        document.body.appendChild(previewElement);
+            // Create a preview of the dragged element
+            previewElement = event.target.cloneNode(true);
+            
+            //Add necessary styles to make it visible and follow the cursor
+            previewElement.classList.add('bg-white', 'w-[300px]', 'py-2', 'pe-3', 'z-[1000]', 'opacity-70', 'pointer-events-none', 'absolute');
+            
+            // Append the preview to the body
+            document.body.appendChild(previewElement);
 
-        // Initially position the preview under the cursor
-        updatePreviewPosition(event.clientX, event.clientY);
+            // Initially position the preview under the cursor
+            updatePreviewPosition(event.clientX, event.clientY);
         },
         move (event) {
-        // Update the preview's position to follow the cursor
-        updatePreviewPosition(event.clientX, event.clientY);
+            // Update the preview's position to follow the cursor
+            updatePreviewPosition(event.clientX, event.clientY);
         },
         end (event) {
-        // Clean up the preview element after dragging ends
-        if (previewElement) {
-            document.body.removeChild(previewElement);
-            previewElement = null;
-        }
+            // Clean up the preview element after dragging ends
+            if (previewElement) {
+                document.body.removeChild(previewElement);
+                previewElement = null;
+            }
         }
     }
 });
@@ -109,6 +110,20 @@ function updatePreviewPosition(x, y) {
 
   previewElement.style.left = `${x - offsetX}px`;
   previewElement.style.top = `${y - offsetY}px`;
+}
+
+async function updateStatus(zone, taskId){
+    let status = 'assigned';
+
+    if(zone === 'dropzone-assigned'){
+        status = 'assigned';
+    }else if(zone === 'dropzone-inprogress'){
+        status = 'in-progress';
+    }else{
+        status = 'done';
+    }
+
+    await updateTaskStatus(taskId, status);
 }
 </script>
 
@@ -128,7 +143,7 @@ function updatePreviewPosition(x, y) {
                     content: {
                         'data-dropzone': true,
                     },
-                }" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
+                }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
                     <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
                         <BeatLoader />
                     </div>
@@ -161,7 +176,7 @@ function updatePreviewPosition(x, y) {
                     content: {
                         'data-dropzone': true,
                     },
-                }" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
+                }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
                     <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
                         <BeatLoader />
                     </div>
@@ -194,7 +209,7 @@ function updatePreviewPosition(x, y) {
                     content: {
                         'data-dropzone': true,
                     },
-                }" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
+                }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
                     <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
                         <BeatLoader />
                     </div>
