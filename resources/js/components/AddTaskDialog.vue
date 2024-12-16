@@ -59,10 +59,10 @@ watch(visible, (newValue) => {
                     <small class="form-error-message" v-if="errors.title">{{ errors.title[0] }}</small>
                 </div>
 
-                <div class="flex flex-col gap-1 my-3">
+                <!-- <div class="flex flex-col gap-1 my-3">
                     <label class="font-semibold">Assign</label>
                     <Select :options="options" optionLabel="name" placeholder="Default" checkmark :highlightOnSelect="false" />
-                </div>
+                </div> -->
 
                 <!-- SubTasks Form Fields -->
                 <!-- <div class="flex flex-col gap-1 mt-5 mb-10">

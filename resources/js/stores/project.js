@@ -10,6 +10,7 @@ export const useProjectStore = defineStore('authProject', {
             message: '',
             istTaskListLoading: false,
             isFormLoading: false,
+            isDeleteLoading: false,
         };
     },
     getters: {},
@@ -52,6 +53,53 @@ export const useProjectStore = defineStore('authProject', {
             
                         //Refresh projects
                         this.getProjects();
+
+                        //Select the recent project
+                        this.getSelectedProject(data.project.id);
+            
+                        //Show response message
+                        this.toast.add({
+                            severity: data.message.severity, 
+                            summary: data.message.summary, 
+                            detail: data.message.detail, 
+                            life: 3000
+                        });
+            
+                        return true;
+                    } 
+                }catch (error){
+                    //Get form errors
+                    if(error.response && error.response.data.errors){
+                        this.errors = error.response.data.errors;
+                    }
+        
+                    console.error('Error in storeProject:', error);
+                    return false;
+                }finally{
+                    this.isFormLoading = false;
+                }
+            }
+        },
+        async updateProject(formData){
+            if(localStorage.getItem('token')){
+                try{
+                    this.isFormLoading = true;
+
+                    const response = await axios.put(`/api/project/update/${this.selectedProject.id}`, formData, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+        
+                    if(response.status === 200){
+                        const data = response.data;
+
+                        //Clear errors
+                        this.errors = {};
+            
+                        //Refresh projects
+                        this.getProjects();
+                        this.getSelectedProject(this.selectedProject.id);
             
                         //Show response message
                         this.toast.add({
@@ -95,6 +143,49 @@ export const useProjectStore = defineStore('authProject', {
                     console.error(error);  
                 }finally{
                     this.istTaskListLoading = false;
+                }
+            }
+        },
+        async destroyProject(){
+            if(localStorage.getItem('token')){
+                try{
+                    this.isDeleteLoading = true;
+
+                    const response = await axios.delete(`/api/project/destroy/${this.selectedProject.id}`, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+
+                    if(response.status === 200){
+                        const data = response.data;
+
+                        //Clear errors
+                        this.errors = {};
+            
+                        //Refresh projects
+                        this.getProjects();
+                        this.selectedProject = null;
+
+                        if(this.projects[0]){
+                            this.getSelectedProject(this.projects[0].id);
+                        }
+            
+                        //Show response message
+                        this.toast.add({
+                            severity: data.message.severity, 
+                            summary: data.message.summary, 
+                            detail: data.message.detail, 
+                            life: 3000
+                        });
+            
+                        return true;
+                    } 
+                }catch(error){
+                    console.log('Inside Axios destroyProject:');
+                    console.error(error);  
+                }finally{
+                    this.isDeleteLoading = false;
                 }
             }
         },

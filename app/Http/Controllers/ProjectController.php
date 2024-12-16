@@ -38,10 +38,45 @@ class ProjectController extends Controller
         return response()->json($project);
     }
 
-    public function update(Request $request){
+    public function update($id, Request $request){
+        $validated = $request->validate([
+            'project_title' => 'required|min:5',
+        ]);
+
+        $project = $request->user()->projects()->find($id);
+        $project->project_title = $validated['project_title'];
+        $project->save();
+
+        return [
+            'message' => [
+                'severity' => 'success',
+                'summary' => 'Success',
+                'detail' => 'Project has been successfully updated.',
+            ]
+        ];
     }
 
-    public function destroy($id){
+    public function destroy($id, Request $request){
+        $project = $request->user()->projects()->find($id);
 
+        if (!$project) {
+            return response()->json([
+                'message' => [
+                    'severity' => 'danger',
+                    'summary' => 'Error',
+                    'detail' => 'Project not found.',
+                ]
+            ], 404);
+        }
+
+        $project->delete();
+
+        return response()->json([
+            'message' => [
+                'severity' => 'success',
+                'summary' => 'Success',
+                'detail' => 'Project has been successfully deleted.',
+            ]
+        ]);
     }
 }
