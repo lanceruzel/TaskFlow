@@ -10,13 +10,13 @@ const projectStore = useProjectStore();
 </script>
 
 <template>
-    <nav class="bg-white flex items-center justify-between gap-3 px-5 py-4">
+    <nav class="bg-white flex items-center justify-between gap-3 px-5 py-4 shadow">
         <div>
             <p v-if="projectStore.selectedProject" class="text-lg font-semibold">Project: <span class="font-normal" v-text="projectStore.selectedProject.project_title"></span></p>
         </div>
 
         <div class="flex items-center justify-center">
-            <NotificationPopover/>
+            <!-- <NotificationPopover/> -->
             <ProfileMenu />
         </div>
     </nav>

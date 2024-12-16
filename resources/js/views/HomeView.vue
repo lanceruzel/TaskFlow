@@ -143,7 +143,7 @@ async function updateStatus(zone, taskId){
                     content: {
                         'data-dropzone': true,
                     },
-                }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
+                }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-13rem)] p-2 !z-20">
                     <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
                         <BeatLoader />
                     </div>
@@ -167,7 +167,7 @@ async function updateStatus(zone, taskId){
                     content: {
                         'data-dropzone': true,
                     },
-                }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
+                }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-13rem)] p-2 !z-20">
                     <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
                         <BeatLoader />
                     </div>
@@ -191,7 +191,7 @@ async function updateStatus(zone, taskId){
                     content: {
                         'data-dropzone': true,
                     },
-                }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-16rem)] p-2 !z-20">
+                }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-13rem)] p-2 !z-20">
                     <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
                         <BeatLoader />
                     </div>
