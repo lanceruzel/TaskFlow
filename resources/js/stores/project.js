@@ -99,7 +99,8 @@ export const useProjectStore = defineStore('authProject', {
             
                         //Refresh projects
                         this.getProjects();
-                        this.getSelectedProject(this.selectedProject.id);
+                        
+                        this.selectedProject.project_title = data.project.project_title;
             
                         //Show response message
                         this.toast.add({

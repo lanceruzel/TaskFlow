@@ -48,6 +48,7 @@ class ProjectController extends Controller
         $project->save();
 
         return [
+            'project' => $project,
             'message' => [
                 'severity' => 'success',
                 'summary' => 'Success',

@@ -5,6 +5,7 @@ import AddTaskDialog from '../components/AddTaskDialog.vue';
 import interact from 'interactjs';
 import { useProjectStore } from '../stores/project'; 
 import BeatLoader from 'vue-spinner/src/BeatLoader.vue';
+import { reactive } from 'vue';
 
 let previousDropzone = null;
 let previewElement = null;
