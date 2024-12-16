@@ -45,9 +45,9 @@ onMounted(() => {
                         <small class="form-error-message" v-if="errors.password">{{ errors.password[0] }}</small>
                     </div>
 
-                    <div class="flex justify-end">
+                    <!-- <div class="flex justify-end">
                         <Button label="Forgot Password?" link />
-                    </div>
+                    </div> -->
 
                     <Button type="submit" label="Signin" class="mt-5" fluid :loading="authStore.isLoading" />
                 </form>
