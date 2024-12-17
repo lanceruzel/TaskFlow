@@ -118,10 +118,10 @@ function updatePreviewPosition(x, y) {
 }
 
 async function updateStatus(zone, taskId){
-    let status = 'assigned';
+    let status = 'todo';
 
-    if(zone === 'dropzone-assigned'){
-        status = 'assigned';
+    if(zone === 'dropzone-todo'){
+        status = 'todo';
     }else if(zone === 'dropzone-inprogress'){
         status = 'in-progress';
     }else{
@@ -152,10 +152,10 @@ const showTask = (id, taskTitle) => {
 
 <template>
     <div class="grid grid-cols-3 gap-5 absolute top-0 bottom-0 right-0 left-0 p-5 select-none">
-        <Card class="grid-cols-1 cursor-pointer h-full -mb-10 Z-10" id="dropzone-assigned">
+        <Card class="grid-cols-1 cursor-pointer h-full -mb-10 Z-10" id="dropzone-todo">
             <template #title>
                 <div class="flex items-center justify-between py-0.5">
-                    <p>Assigned</p>
+                    <p>To do</p>
 
                     <AddTaskDialog />
                 </div>
@@ -171,7 +171,7 @@ const showTask = (id, taskTitle) => {
                         <PulseLoader />
                     </div>
                     
-                    <div v-else v-for="task in getFilteredTasks('assigned')" :key="task.id" class="flex items-center justify-between p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                    <div v-else v-for="task in getFilteredTasks('todo')" :key="task.id" class="flex items-center justify-between p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
                         <p v-text="task.title"></p>
                         <Button class="!size-[25px]" @click="showTask(task.id, task.title)" icon="pi pi-ellipsis-v" size="small" severity="secondary" text rounded />
                     </div>

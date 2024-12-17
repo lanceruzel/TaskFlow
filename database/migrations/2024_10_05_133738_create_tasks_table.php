@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('assigned_id')->references('id')->on('users')->nullOnDelete();
 
             $table->string('title');
-            $table->string('status')->default('assigned');
+            $table->string('status')->default('todo');
 
             $table->timestamps();
         });
