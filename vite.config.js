@@ -19,7 +19,7 @@ export default defineConfig({
           Accept: "application/json",
           "Content-Type": "application/json",
         }, 
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        // rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
