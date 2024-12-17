@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://task-flow.free.nf', 'http://task-flow.free.nf', 'https://errors.infinityfree.net'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
