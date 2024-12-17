@@ -5,7 +5,11 @@ import AddTaskDialog from '../components/AddTaskDialog.vue';
 import interact from 'interactjs';
 import { useProjectStore } from '../stores/project'; 
 import BeatLoader from 'vue-spinner/src/BeatLoader.vue';
-import { reactive } from 'vue';
+import Button from 'primevue/button';
+import { defineAsyncComponent } from 'vue';
+import { useDialog } from 'primevue/usedialog';
+
+const dialog = useDialog();
 
 let previousDropzone = null;
 let previewElement = null;
@@ -124,7 +128,25 @@ async function updateStatus(zone, taskId){
         status = 'done';
     }
 
-    await updateTaskStatus(taskId, status);
+    await updateTaskStatus(taskId, status, null);
+}
+
+const UpdateTaskDynamicDialog = defineAsyncComponent(() => import('../components/UpdateTaskDynamicDialog.vue'));
+
+const showTask = (id, taskTitle) => {
+    dialog.open(UpdateTaskDynamicDialog, {
+        props: {
+            header: 'Update Task',
+            style: {
+                width: '25rem',
+            },
+            modal: true
+        },
+        data: {
+            task: id,
+            title: taskTitle
+        }
+    });
 }
 </script>
 
@@ -134,7 +156,7 @@ async function updateStatus(zone, taskId){
             <template #title>
                 <div class="flex items-center justify-between py-0.5">
                     <p>Assigned</p>
-                    
+
                     <AddTaskDialog />
                 </div>
             </template>
@@ -149,8 +171,9 @@ async function updateStatus(zone, taskId){
                         <BeatLoader />
                     </div>
                     
-                    <div v-else v-for="task in getFilteredTasks('assigned')" :key="task.id" class="p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                    <div v-else v-for="task in getFilteredTasks('assigned')" :key="task.id" class="flex items-center justify-between p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
                         <p v-text="task.title"></p>
+                        <Button class="!size-[25px]" @click="showTask(task.id, task.title)" icon="pi pi-ellipsis-v" size="small" severity="secondary" text rounded />
                     </div>
                 </ScrollPanel>
             </template>
@@ -173,8 +196,9 @@ async function updateStatus(zone, taskId){
                         <BeatLoader />
                     </div>
                     
-                    <div v-else v-for="task in getFilteredTasks('in-progress')" :key="task.id" class="p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                    <div v-else v-for="task in getFilteredTasks('in-progress')" :key="task.id" class="flex items-center justify-between p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
                         <p v-text="task.title"></p>
+                        <Button class="!size-[25px]" @click="showTask(task.id, task.title)" icon="pi pi-ellipsis-v" size="small" severity="secondary" text rounded />
                     </div>
                 </ScrollPanel>
             </template>
@@ -197,8 +221,9 @@ async function updateStatus(zone, taskId){
                         <BeatLoader />
                     </div>
                     
-                    <div v-else v-for="task in getFilteredTasks('done')" :key="task.id" class="p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
+                    <div v-else v-for="task in getFilteredTasks('done')" :key="task.id" class="flex items-center justify-between p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
                         <p v-text="task.title"></p>
+                        <Button class="!size-[25px]" @click="showTask(task.id, task.title)" icon="pi pi-ellipsis-v" size="small" severity="secondary" text rounded />
                     </div>
                 </ScrollPanel>
             </template>

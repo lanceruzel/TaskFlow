@@ -9,6 +9,7 @@ import App from './App.vue';
 import router from './router';
 import 'primeicons/primeicons.css';
 import { useToast } from 'primevue/usetoast';
+import DialogService from 'primevue/dialogservice';
 
 const pinia = createPinia();
 const app = createApp(App);
@@ -23,6 +24,7 @@ pinia.use(({store}) => {
 app.use(pinia);
 app.use(router);
 app.use(ToastService);
+app.use(DialogService);
 
 app.use(PrimeVue, {
     theme: {

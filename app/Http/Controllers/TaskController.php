@@ -34,12 +34,22 @@ class TaskController extends Controller
     }
 
     public function update($id, Request $request){
-        $validated = $request->validate([
-            'status' => 'required',
-        ]);
-
         $task = Task::find($id);
-        $task->status = $validated['status'];
+
+        $validated = null;
+
+        if($request->title){
+            $validated = $request->validate([
+                'title' => 'min:5'
+            ]);
+
+            $task->title = $validated['title'];
+        }
+
+        if($request->status){
+            $task->status = $request->status;
+        }
+
         $task->save();
 
         return [
@@ -49,5 +59,29 @@ class TaskController extends Controller
                 'detail' => 'Task has been successfully updated.',
             ]
         ];
+    }
+
+    public function destroy($id, Request $request){
+        $task = Task::find($id);
+
+        if (!$task) {
+            return response()->json([
+                'message' => [
+                    'severity' => 'danger',
+                    'summary' => 'Error',
+                    'detail' => 'Task not found.',
+                ]
+            ], 404);
+        }
+
+        $task->delete();
+
+        return response()->json([
+            'message' => [
+                'severity' => 'success',
+                'summary' => 'Success',
+                'detail' => 'Project has been successfully deleted.',
+            ]
+        ]);
     }
 }

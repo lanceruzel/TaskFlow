@@ -23,3 +23,4 @@ Route::put('/project/update/{id}', [ProjectController::class, 'update'])->middle
 Route::get('/task/show/{id}', [TaskController::class, 'show'])->middleware('auth:sanctum');
 Route::post('/task/store', [TaskController::class, 'store'])->middleware('auth:sanctum');
 Route::put('/task/update/{id}', [TaskController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/task/destroy/{id}', [TaskController::class, 'destroy'])->middleware('auth:sanctum');

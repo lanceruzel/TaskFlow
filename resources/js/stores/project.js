@@ -130,6 +130,8 @@ export const useProjectStore = defineStore('authProject', {
                 try{
                     this.istTaskListLoading = true;
 
+                    this.selectedProject = null;
+
                     const response = await axios.get(`/api/project/show/${id}`, {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -236,7 +238,7 @@ export const useProjectStore = defineStore('authProject', {
                         //Clear errors
                         this.errors = {};
             
-                        //Refresh tasks
+                        //Refresh tasks and projects
                         this.getTasks();
                         this.getProjects();
             
@@ -263,18 +265,32 @@ export const useProjectStore = defineStore('authProject', {
                 }
             }
         },
-        async updateTaskStatus(id, status){
+        async updateTaskStatus(id, status, title){
             if(localStorage.getItem('token')){
                 try{
-                    const response = await axios.put(`/api/task/update/${id}`, { status: status,}, {
+                    const response = await axios.put(`/api/task/update/${id}`, { status: status, title: title}, {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('token')}`
                         }
                     });
         
                     if(response.status === 200){
-                        //Refresh tasks
-                        // this.getTasks();
+                        if(title){
+                            const data = response.data;
+                            this.errors = {};
+
+                            //Refresh task
+                            this.getTasks();
+
+                            //Show response message
+                            this.toast.add({
+                                severity: data.message.severity, 
+                                summary: data.message.summary, 
+                                detail: data.message.detail, 
+                                life: 3000
+                            });
+                        }
+
                         return true;
                     } 
                 }catch (error){
@@ -283,6 +299,45 @@ export const useProjectStore = defineStore('authProject', {
                     return false;
                 }
             }
-        }
+        },
+        async destroyTask(id){
+            if(localStorage.getItem('token')){
+                try{
+                    this.isDeleteLoading = true;
+
+                    const response = await axios.delete(`/api/task/destroy/${id}`, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+
+                    if(response.status === 200){
+                        const data = response.data;
+
+                        //Clear errors
+                        this.errors = {};
+            
+                        //Refresh tasks and projects
+                        this.getTasks();
+                        this.getProjects();
+
+                        //Show response message
+                        this.toast.add({
+                            severity: data.message.severity, 
+                            summary: data.message.summary, 
+                            detail: data.message.detail, 
+                            life: 3000
+                        });
+            
+                        return true;
+                    } 
+                }catch(error){
+                    console.log('Inside Axios destroy task:');
+                    console.error(error);  
+                }finally{
+                    this.isDeleteLoading = false;
+                }
+            }
+        },
     },
 });

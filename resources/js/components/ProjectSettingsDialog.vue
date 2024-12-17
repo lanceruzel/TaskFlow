@@ -46,7 +46,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <Button icon="pi pi-cog" @click="visible = true" severity="secondary" variant="text" rounded />
+    <Button icon="pi pi-cog" @click="visible = true" severity="secondary" text rounded />
 
     <Dialog v-model:visible="visible" modal header="Project Settings" :style="{ width: '25rem' }">
 

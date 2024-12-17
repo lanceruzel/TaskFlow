@@ -8,7 +8,7 @@ const projectStore = useProjectStore();
 
 <template>
     <nav class="bg-white flex items-center justify-between gap-3 px-5 py-4 shadow">
-        <div class="flex items-center justify-center gap-2">
+        <div class="flex items-center justify-center">
             <ProjectSettingsDialog />
             <p v-if="projectStore.selectedProject" class="text-lg font-semibold">Project: <span class="font-normal" v-text="projectStore.selectedProject.project_title"></span></p>
         </div>
