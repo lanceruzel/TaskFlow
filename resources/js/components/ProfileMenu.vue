@@ -25,10 +25,10 @@ const toggle = (event) => {
         <Popover ref="op">
             <div class="flex flex-col">
                 <ul class="list-none p-0 m-0 flex flex-col">
-                    <li class="flex items-center gap-2 py-2 ps-3 pe-12 hover:bg-gray-100 cursor-pointer transition-all">
+                    <!-- <li class="flex items-center gap-2 py-2 ps-3 pe-12 hover:bg-gray-100 cursor-pointer transition-all">
                         <i class="pi pi-user"></i>
                         <p class="text-sm">Profile</p>
-                    </li>
+                    </li> -->
 
                     <li class=" hover:bg-gray-100 cursor-pointer transition-all">
                         <form @submit.prevent="logout">
