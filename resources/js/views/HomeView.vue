@@ -4,7 +4,7 @@ import Card from 'primevue/card';
 import AddTaskDialog from '../components/AddTaskDialog.vue';
 import interact from 'interactjs';
 import { useProjectStore } from '../stores/project'; 
-import BeatLoader from 'vue-spinner/src/BeatLoader.vue';
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 import Button from 'primevue/button';
 import { defineAsyncComponent } from 'vue';
 import { useDialog } from 'primevue/usedialog';
@@ -168,7 +168,7 @@ const showTask = (id, taskTitle) => {
                     },
                 }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-13rem)] p-2 !z-20">
                     <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
-                        <BeatLoader />
+                        <PulseLoader />
                     </div>
                     
                     <div v-else v-for="task in getFilteredTasks('assigned')" :key="task.id" class="flex items-center justify-between p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
@@ -193,7 +193,7 @@ const showTask = (id, taskTitle) => {
                     },
                 }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-13rem)] p-2 !z-20">
                     <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
-                        <BeatLoader />
+                        <PulseLoader />
                     </div>
                     
                     <div v-else v-for="task in getFilteredTasks('in-progress')" :key="task.id" class="flex items-center justify-between p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">
@@ -218,7 +218,7 @@ const showTask = (id, taskTitle) => {
                     },
                 }" :key="projectStore.selectedProject ? projectStore.selectedProject.id : null" class="w-full h-[calc(100dvh-13rem)] p-2 !z-20">
                     <div class="w-full h-full flex items-center justify-center" v-if="projectStore.istTaskListLoading">
-                        <BeatLoader />
+                        <PulseLoader />
                     </div>
                     
                     <div v-else v-for="task in getFilteredTasks('done')" :key="task.id" class="flex items-center justify-between p-4 my-3 mx-1 shadow-sm leading-tight border rounded !z-30" data-draggable :data-taskid="task.id">

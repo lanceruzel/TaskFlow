@@ -268,6 +268,8 @@ export const useProjectStore = defineStore('authProject', {
         async updateTaskStatus(id, status, title){
             if(localStorage.getItem('token')){
                 try{
+                    this.isFormLoading = true;
+
                     const response = await axios.put(`/api/task/update/${id}`, { status: status, title: title}, {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -297,6 +299,8 @@ export const useProjectStore = defineStore('authProject', {
                     //Show error
                     console.error('Error in update task:', error);
                     return false;
+                }finally{
+                    this.isFormLoading = false;
                 }
             }
         },
